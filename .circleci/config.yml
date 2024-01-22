@@ -35,7 +35,7 @@ jobs:
          command: |
            #env > /tmp/env1
            #aws sts assume-role --role-arn "arn:aws:iam::336605340992:role/s3-web-identity-gke-staging" --role-session-name AWSCLI-Session --profile "OIDC-PROFILE" --region us-west-1
-           aws s3 ls s3://test-destination-bucket1 --profile "OIDC-PROFILE"
+           aws s3 ls s3://test-destination-bucket1 --profile "OIDC-PROFILE" --region us-west-1
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
