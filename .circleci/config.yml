@@ -27,16 +27,17 @@ jobs:
      - checkout
      # run the aws-cli/setup command from the orb
      - aws-cli/setup:
-         role-arn: 'arn:aws:iam::336605340992:role/s3-web-identity-gke-staging'
-         aws-region: "us-west-1"
-         # optional parameters
-         profile-name: "OIDC-PROFILE"
-         role-session-name: “example-session”
-         session-duration: 1800
+         profile_name: "OIDC-PROFILE"
+     - aws-cli/role_arn_setup:
+         role_arn: 'arn:aws:iam::336605340992:role/s3-web-identity-gke-staging'
+         profile_name: "OIDC-PROFILE"
+         role_session_name: AWSCLI-Session
      - run:
          name: Log-into-AWS-ECR
          command: |
            # must use same profile specified in the step above       
+           aws sts assume-role --role_arn "arn:aws:iam::336605340992:role/s3-web-identity-gke-staging" --role_session_name
+          AWSCLI-Session
            aws s3 ls s3://test-destination-bucket1 --profile "OIDC-PROFILE"
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
