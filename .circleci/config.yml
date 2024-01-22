@@ -31,7 +31,6 @@ jobs:
      - aws-cli/role_arn_setup:
          role_arn: 'arn:aws:iam::336605340992:role/s3-web-identity-gke-staging'
          profile_name: "OIDC-PROFILE"
-         role_session_name: AWSCLI-Session
      - run:
          name: Log-into-AWS-ECR
          command: |
