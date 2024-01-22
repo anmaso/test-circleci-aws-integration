@@ -34,7 +34,7 @@ jobs:
          name: Log-into-AWS-ECR
          command: |
            env > /tmp/env1
-           aws sts assume-role --role_arn "arn:aws:iam::336605340992:role/s3-web-identity-gke-staging" --role_session_name AWSCLI-Session
+           aws sts assume-role --role-arn "arn:aws:iam::336605340992:role/s3-web-identity-gke-staging" --role-session_name AWSCLI-Session --profile "OIDC-PROFILE"
            aws s3 ls s3://test-destination-bucket1 --profile "OIDC-PROFILE"
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
