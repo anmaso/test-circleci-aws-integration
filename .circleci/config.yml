@@ -28,9 +28,8 @@ jobs:
      # run the aws-cli/setup command from the orb
      - aws-cli/setup:
          profile_name: "OIDC-PROFILE"
-     - aws-cli/role_arn_setup:
          role_arn: 'arn:aws:iam::336605340992:role/s3-web-identity-gke-staging'
-         profile_name: "OIDC-PROFILE"
+         role_session_name: AWSCLI-Session
      - run:
          name: Log-into-AWS-ECR
          command: |
@@ -39,9 +38,6 @@ jobs:
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
-    jobs:
-      - say-hello
   OIDC-with-AWS:
    jobs:
      - aws-example:
