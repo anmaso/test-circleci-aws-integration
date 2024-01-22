@@ -41,7 +41,7 @@ workflows:
   say-hello-workflow:
     jobs:
       - say-hello
- OIDC-with-AWS:
+  OIDC-with-AWS:
    jobs:
      - aws-example:
          # must use a valid CircleCI context
