@@ -17,10 +17,32 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
-
+  aws-example:
+   docker:
+     - image: cimg/aws:2022.06
+   steps:
+     - checkout
+     # run the aws-cli/setup command from the orb
+     - aws-cli/setup:
+         role-arn: 'arn:aws:iam::336605340992:role/s3-web-identity-gke-staging'
+         aws-region: "us-west-1"
+         # optional parameters
+         profile-name: "OIDC-PROFILE"
+         role-session-name: “example-session”
+         session-duration: 1800
+     - run:
+         name: Log-into-AWS-ECR
+         command: |
+           # must use same profile specified in the step above       
+           aws s3 ls s3://test-destination-bucket1 --profile "OIDC-PROFILE"
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
   say-hello-workflow:
     jobs:
       - say-hello
+ OIDC-with-AWS:
+   jobs:
+     - aws-example:
+         # must use a valid CircleCI context
+         context: aws
